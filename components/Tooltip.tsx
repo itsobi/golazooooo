@@ -16,7 +16,7 @@ export default function TooltipCustom({
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>{icon}</TooltipTrigger>
-        <TooltipContent className="w-32 text-slate-500 font-light">
+        <TooltipContent className="w-44 text-slate-500 font-light">
           <p>{hoverText}</p>
         </TooltipContent>
       </Tooltip>
