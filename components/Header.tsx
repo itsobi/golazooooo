@@ -2,7 +2,7 @@ import { Search } from 'lucide-react';
 
 export default function Header() {
   return (
-    <header className="flex justify-between items-center py-6 px-4 border-b shadow-sm">
+    <header className="flex justify-between items-center py-6 px-4 border-b shadow-sm mb-6">
       <p>Golazooooo</p>
 
       <form className="flex items-center rounded-full px-4 py-2 space-x-2 lg:w-[500px] bg-slate-50">

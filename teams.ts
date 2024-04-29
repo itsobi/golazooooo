@@ -1,4 +1,4 @@
-const premierLeagueTeams = [
+export const premierLeagueTeams = [
   {
     team: 'Arsenal',
     location: 'Islington, London, ENG',
@@ -121,7 +121,7 @@ const premierLeagueTeams = [
   },
 ];
 
-const mlsTeamsAndStadiums = [
+export const mlsTeams = [
   {
     team: 'Atlanta United FC',
     stadium: 'Mercedes-Benz Stadium',
