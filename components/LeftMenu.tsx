@@ -23,13 +23,13 @@ export default function LeftMenu() {
         </div>
         <Select>
           <SelectTrigger className="w-[280px]">
-            <SelectValue placeholder="Select an EPL team" />
+            <SelectValue placeholder="Select EPL team" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
               {premierLeagueTeams.map((item) => (
                 <SelectItem key={item.value} value={item.value}>
-                  {item.team}
+                  {item.label}
                 </SelectItem>
               ))}
             </SelectGroup>
@@ -47,7 +47,7 @@ export default function LeftMenu() {
             <SelectGroup>
               {mlsTeams.map((item) => (
                 <SelectItem key={item.value} value={item.value}>
-                  {item.team}
+                  {item.label}
                 </SelectItem>
               ))}
             </SelectGroup>

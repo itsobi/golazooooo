@@ -36,14 +36,14 @@ export default function PostForm() {
             <label>Community:</label>
             <Select>
               <SelectTrigger className="w-[280px]">
-                <SelectValue placeholder="Select an EPL team" />
+                <SelectValue placeholder="Select a team" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>English Premier League</SelectLabel>
                   {premierLeagueTeams.map((item) => (
                     <SelectItem key={item.value} value={item.value}>
-                      {item.team}
+                      {item.label}
                     </SelectItem>
                   ))}
                 </SelectGroup>
@@ -51,7 +51,7 @@ export default function PostForm() {
                   <SelectLabel>MLS</SelectLabel>
                   {mlsTeams.map((item) => (
                     <SelectItem key={item.value} value={item.value}>
-                      {item.team}
+                      {item.label}
                     </SelectItem>
                   ))}
                 </SelectGroup>
