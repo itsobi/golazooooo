@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <div className="mt-auto sticky bottom-0">
-      <p className="text-xs text-slate-300">
+      <p className="text-xs text-slate-300 ml-2 mb-2">
         Brought to you by {''}
         <Link
           href="https://www.justobii.com/"

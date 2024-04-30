@@ -7,18 +7,23 @@ import { Button } from './ui/button';
 export default function Header() {
   const { userId } = auth();
   return (
-    <header className="flex justify-between items-center py-6 px-4 border-b shadow-sm mb-6">
-      <p>Golazooooo</p>
+    <header className="grid grid-cols-6 py-6 px-4 border-b shadow-sm mb-6">
+      <p className="col-span-2 flex justify-start items-center">Golazooooo</p>
 
-      <HeaderSearch />
+      <div className="col-span-2">
+        <HeaderSearch />
+      </div>
 
-      {/* user button / signIn button */}
       {userId ? (
-        <UserButton />
+        <div className="col-span-2 flex justify-end">
+          <UserButton />
+        </div>
       ) : (
-        <SignInButton mode="modal">
-          <Button>Sign In</Button>
-        </SignInButton>
+        <div className="col-span-2 flex justify-start">
+          <SignInButton mode="modal">
+            <Button>Sign In</Button>
+          </SignInButton>
+        </div>
       )}
     </header>
   );

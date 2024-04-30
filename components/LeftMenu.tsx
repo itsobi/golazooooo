@@ -7,12 +7,24 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { CircleHelp } from 'lucide-react';
-import { mlsTeams, premierLeagueTeams } from '@/teams';
 import TooltipCustom from './Tooltip';
+import { createClient } from '@/supabase/server';
+import Image from 'next/image';
 
-export default function LeftMenu() {
+export default async function LeftMenu() {
+  const supabase = createClient();
+
+  const { data: eplTeams } = await supabase
+    .from('teams')
+    .select('*')
+    .eq('league', 'Premier League');
+  const { data: mlsTeams } = await supabase
+    .from('teams')
+    .select('*')
+    .eq('league', 'MLS');
+
   return (
-    <section className="hidden xl:inline-grid xl:col-span-2 p-6 space-y-6 border rounded h-52">
+    <section className="hidden xl:inline-grid xl:col-span-2 p-6 space-y-6 border xl:ml-4 rounded h-52">
       <div className="space-y-1">
         <div className="flex items-center space-x-2">
           <h4 className="font-bold">English Premier League</h4>
@@ -27,9 +39,17 @@ export default function LeftMenu() {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {premierLeagueTeams.map((item) => (
-                <SelectItem key={item.value} value={item.value}>
-                  {item.label}
+              {eplTeams?.map((team) => (
+                <SelectItem key={team.value} value={team.value}>
+                  <div className="flex items-center space-x-2">
+                    <img
+                      src={team.image}
+                      alt={team.label}
+                      width={24}
+                      height={24}
+                    />
+                    <p>{team.label}</p>
+                  </div>
                 </SelectItem>
               ))}
             </SelectGroup>
@@ -45,9 +65,17 @@ export default function LeftMenu() {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {mlsTeams.map((item) => (
-                <SelectItem key={item.value} value={item.value}>
-                  {item.label}
+              {mlsTeams?.map((team) => (
+                <SelectItem key={team.value} value={team.value}>
+                  <div className="flex items-center space-x-2">
+                    <img
+                      src={team.image}
+                      alt={team.label}
+                      width={24}
+                      height={24}
+                    />
+                    <p>{team.label}</p>
+                  </div>
                 </SelectItem>
               ))}
             </SelectGroup>
