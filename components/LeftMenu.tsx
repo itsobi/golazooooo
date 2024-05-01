@@ -1,15 +1,8 @@
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { CircleHelp } from 'lucide-react';
 import TooltipCustom from './Tooltip';
 import { createClient } from '@/supabase/server';
-import Image from 'next/image';
+import LeftMenuSelect from './LeftMenuSelect';
+import { Button } from './ui/button';
 
 export default async function LeftMenu() {
   const supabase = createClient();
@@ -24,7 +17,7 @@ export default async function LeftMenu() {
     .eq('league', 'MLS');
 
   return (
-    <section className="hidden xl:inline-grid xl:col-span-2 p-6 space-y-6 border xl:ml-4 rounded h-52">
+    <form className="hidden xl:inline-grid xl:col-span-2 p-6 space-y-6 border xl:ml-4 rounded">
       <div className="space-y-1">
         <div className="flex items-center space-x-2">
           <h4 className="font-bold">English Premier League</h4>
@@ -33,55 +26,35 @@ export default async function LeftMenu() {
             hoverText="Select a team in any league to view posts in their respective communities."
           />
         </div>
-        <Select>
-          <SelectTrigger className="w-[280px]">
-            <SelectValue placeholder="Select EPL team" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              {eplTeams?.map((team) => (
-                <SelectItem key={team.value} value={team.value}>
-                  <div className="flex items-center space-x-2">
-                    <img
-                      src={team.image}
-                      alt={team.label}
-                      width={24}
-                      height={24}
-                    />
-                    <p>{team.label}</p>
-                  </div>
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <select
+          name="eplTeam"
+          className="outline-none border rounded bg-slate-50 p-2 w-full"
+        >
+          <option value="">Select a team</option>
+          {eplTeams?.map((team) => (
+            <option key={team.id} value={team.id + 1}>
+              {team.label}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="space-y-1">
         <h4 className="font-bold">Major League Soccer</h4>
-        <Select>
-          <SelectTrigger className="w-[280px]">
-            <SelectValue placeholder="Select MLS team" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              {mlsTeams?.map((team) => (
-                <SelectItem key={team.value} value={team.value}>
-                  <div className="flex items-center space-x-2">
-                    <img
-                      src={team.image}
-                      alt={team.label}
-                      width={24}
-                      height={24}
-                    />
-                    <p>{team.label}</p>
-                  </div>
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <select
+          name="mlsTeam"
+          className="outline-none border rounded bg-slate-50 p-2 w-full"
+        >
+          <option value="">Select a team</option>
+          {mlsTeams?.map((team) => (
+            <option key={team.id} value={team.id + 1}>
+              {team.label}
+            </option>
+          ))}
+        </select>
       </div>
-    </section>
+
+      <Button type="submit">Visit</Button>
+    </form>
   );
 }
