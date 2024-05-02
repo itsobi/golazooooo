@@ -19,7 +19,7 @@ export default function Header() {
           <UserButton />
         </div>
       ) : (
-        <div className="col-span-2 flex justify-start">
+        <div className="col-span-2 flex justify-end">
           <SignInButton mode="modal">
             <Button>Sign In</Button>
           </SignInButton>

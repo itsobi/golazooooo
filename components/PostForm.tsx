@@ -3,13 +3,8 @@
 import { CircleHelp } from 'lucide-react';
 import TooltipCustom from './Tooltip';
 import { useState } from 'react';
-import { createPost } from '@/app/actions';
-import { useFormState, useFormStatus } from 'react-dom';
+import { createPost } from '@/app/actions/posts/actions';
 import { Button } from './ui/button';
-
-const initialState = {
-  message: '',
-};
 
 export default function PostForm({
   userId,
@@ -19,12 +14,26 @@ export default function PostForm({
   allTeams: any[] | null;
 }) {
   const [title, setTitle] = useState('');
-  const [community, setCommunity] = useState('');
+  const [communityValue, setCommunityValue] = useState('');
   const [body, setBody] = useState('');
-  const [state, formAction] = useFormState(createPost, initialState);
-  const { pending } = useFormStatus();
+  const [image, setImage] = useState('');
+  const updatePostWithCommunityValue = createPost.bind(null, communityValue);
+
+  const resetForm = () => {
+    setTitle('');
+    setCommunityValue('');
+    setBody('');
+    setImage('');
+  };
+
   return (
-    <form action={formAction} className="flex-col space-y-4">
+    <form
+      action={(formData) => {
+        resetForm();
+        updatePostWithCommunityValue(formData);
+      }}
+      className="flex-col space-y-4"
+    >
       <div className="flex items-center space-x-2">
         <label>Title:</label>
         <input
@@ -38,9 +47,7 @@ export default function PostForm({
           type="text"
           className={`${
             userId ? 'cursor-default' : 'cursor-not-allowed'
-          } outline-none bg-slate-50 w-full rounded-full px-4 py-2 ${
-            state?.message.includes('Title') && 'bg-red-100'
-          }`}
+          } outline-none bg-slate-50 w-full rounded-full px-4 py-2`}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -53,12 +60,13 @@ export default function PostForm({
             <label>Community:</label>
             <select
               name="community"
-              onChange={(e) => setCommunity(e.target.value)}
+              value={communityValue}
+              onChange={(e) => setCommunityValue(e.target.value)}
               className="outline-none border rounded bg-slate-50 p-2"
             >
               <option value="">Teams</option>
               {allTeams?.map((team) => (
-                <option key={team.id} value={team.id + 1}>
+                <option key={team.id} value={team.value}>
                   {team.label}
                 </option>
               ))}
@@ -78,15 +86,15 @@ export default function PostForm({
               onChange={(e) => setBody(e.target.value)}
               placeholder="Enter a title to create a post"
               type="text"
-              className={`bg-slate-50 outline-none w-full rounded-full px-4 py-2 ${
-                state?.message.includes('Body') && 'bg-red-100'
-              }`}
+              className={`bg-slate-50 outline-none w-full rounded-full px-4 py-2`}
             />
           </div>
 
           <div className="flex items-center space-x-2">
             <label>Image:</label>
             <input
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
               name="image"
               placeholder="Past the URL to an image to include in the post (optional)"
               type="text"
@@ -95,13 +103,8 @@ export default function PostForm({
           </div>
         </>
       )}
-      <p className="text-center text-red-500 font-serif">{state?.message}</p>
       {title && body && (
-        <Button
-          disabled={pending}
-          type="submit"
-          className={`w-full rounded-full`}
-        >
+        <Button type="submit" className="w-full rounded-full">
           Submit
         </Button>
       )}

@@ -17,7 +17,7 @@ export default async function LeftMenu() {
     .eq('league', 'MLS');
 
   return (
-    <form className="hidden xl:inline-grid xl:col-span-2 p-6 space-y-6 border xl:ml-4 rounded">
+    <form className="hidden xl:inline-grid xl:col-span-2 p-6 space-y-6 border xl:ml-4 rounded max-h-72">
       <div className="space-y-1">
         <div className="flex items-center space-x-2">
           <h4 className="font-bold">English Premier League</h4>
@@ -32,7 +32,7 @@ export default async function LeftMenu() {
         >
           <option value="">Select a team</option>
           {eplTeams?.map((team) => (
-            <option key={team.id} value={team.id + 1}>
+            <option key={team.id} value={team.value}>
               {team.label}
             </option>
           ))}
@@ -47,7 +47,7 @@ export default async function LeftMenu() {
         >
           <option value="">Select a team</option>
           {mlsTeams?.map((team) => (
-            <option key={team.id} value={team.id + 1}>
+            <option key={team.id} value={team.value}>
               {team.label}
             </option>
           ))}
