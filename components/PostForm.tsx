@@ -8,16 +8,22 @@ import { Button } from './ui/button';
 
 export default function PostForm({
   userId,
+  username,
   allTeams,
 }: {
   userId: string | null;
+  username: string;
   allTeams: any[] | null;
 }) {
   const [title, setTitle] = useState('');
   const [communityValue, setCommunityValue] = useState('');
   const [body, setBody] = useState('');
   const [image, setImage] = useState('');
-  const updatePostWithCommunityValue = createPost.bind(null, communityValue);
+  const updatePostWithCommunityValue = createPost.bind(
+    null,
+    communityValue,
+    username
+  );
 
   const resetForm = () => {
     setTitle('');
@@ -32,7 +38,7 @@ export default function PostForm({
         resetForm();
         updatePostWithCommunityValue(formData);
       }}
-      className="flex-col space-y-4"
+      className="flex-col space-y-4 border-b pb-4"
     >
       <div className="flex items-center space-x-2">
         <label>Title:</label>
@@ -79,18 +85,6 @@ export default function PostForm({
           </div>
 
           <div className="flex items-center space-x-2">
-            <label>Body:</label>
-            <input
-              name="body"
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-              placeholder="Enter a title to create a post"
-              type="text"
-              className={`bg-slate-50 outline-none w-full rounded-full px-4 py-2`}
-            />
-          </div>
-
-          <div className="flex items-center space-x-2">
             <label>Image:</label>
             <input
               value={image}
@@ -99,6 +93,17 @@ export default function PostForm({
               placeholder="Past the URL to an image to include in the post (optional)"
               type="text"
               className="outline-none bg-slate-50 w-full rounded-full px-4 py-2"
+            />
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <label>Body:</label>
+            <textarea
+              name="body"
+              value={body}
+              onChange={(e) => setBody(e.target.value)}
+              placeholder="Enter a title to create a post"
+              className={`bg-slate-50 outline-none w-full px-4 py-2 h-14`}
             />
           </div>
         </>

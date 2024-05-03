@@ -5,6 +5,7 @@ import { auth } from '@clerk/nextjs/server';
 
 export const createPost = async (
   communityValue: string,
+  username: string,
   formData: FormData
 ) => {
   const { userId } = auth();
@@ -30,8 +31,9 @@ export const createPost = async (
           body: body,
           image: image,
           title: title,
-          user_id: userId,
+          clerk_user_id: userId,
           community_value: newCommunityValue,
+          username: username,
         },
       ])
       .select();
