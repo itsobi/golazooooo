@@ -20,9 +20,7 @@ export default async function Feed() {
       )}
 
       {posts?.map((post) => (
-        <div className="flex-col">
-          <Post key={post.id} post={post} />
-        </div>
+        <Post key={post.id} post={post} />
       ))}
     </section>
   );

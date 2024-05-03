@@ -5,7 +5,7 @@ export default function HeaderSearch() {
     <form className="flex items-center rounded-full px-4 py-2 space-x-2 bg-slate-50">
       <Search />
       <input
-        placeholder="Search Golazooooo"
+        placeholder="Search app"
         type="text"
         className="outline-none bg-transparent w-full"
       />

@@ -17,7 +17,7 @@ export default async function LeftMenu() {
     .eq('league', 'MLS');
 
   return (
-    <form className="hidden xl:inline-grid xl:col-span-2 p-6 space-y-6 border xl:ml-4 rounded max-h-72">
+    <form className="hidden xl:inline-grid xl:col-span-2 p-6 space-y-6 border xl:ml-4 rounded max-h-72 sticky top-8">
       <div className="space-y-1">
         <div className="flex items-center space-x-2">
           <h4 className="font-bold">English Premier League</h4>
