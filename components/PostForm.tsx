@@ -17,13 +17,24 @@ export default function PostForm({
 }) {
   const [title, setTitle] = useState('');
   const [communityValue, setCommunityValue] = useState('');
+  const [communityLabel, setCommunityLabel] = useState('');
   const [body, setBody] = useState('');
   const [image, setImage] = useState('');
   const updatePostWithCommunityValue = createPost.bind(
     null,
     communityValue,
+    communityLabel,
     username
   );
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = e.target.value;
+    setCommunityValue(selectedValue);
+
+    const selectedTeam = allTeams?.find((team) => team.value === selectedValue);
+    const selectedLabel = selectedTeam?.label;
+    setCommunityLabel(selectedLabel); // Outputs the label of the selected option
+  };
 
   const resetForm = () => {
     setTitle('');
@@ -67,13 +78,13 @@ export default function PostForm({
             <select
               name="community"
               value={communityValue}
-              onChange={(e) => setCommunityValue(e.target.value)}
+              onChange={handleSelectChange}
               className="outline-none border rounded bg-slate-50 p-2"
             >
               <option value="">Teams</option>
               {allTeams?.map((team) => (
                 <option key={team.id} value={team.value}>
-                  {team.label}
+                  {team.name}
                 </option>
               ))}
             </select>
@@ -110,7 +121,7 @@ export default function PostForm({
       )}
       {title && body && (
         <Button type="submit" className="w-full rounded-full">
-          Submit
+          Create post
         </Button>
       )}
     </form>

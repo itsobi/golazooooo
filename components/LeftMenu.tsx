@@ -33,7 +33,7 @@ export default async function LeftMenu() {
           <option value="">Select a team</option>
           {eplTeams?.map((team) => (
             <option key={team.id} value={team.value}>
-              {team.label}
+              {team.name}
             </option>
           ))}
         </select>
@@ -48,7 +48,7 @@ export default async function LeftMenu() {
           <option value="">Select a team</option>
           {mlsTeams?.map((team) => (
             <option key={team.id} value={team.value}>
-              {team.label}
+              {team.name}
             </option>
           ))}
         </select>

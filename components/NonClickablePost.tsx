@@ -30,7 +30,10 @@ export default function NonClickablePost({ post }: { post: Post }) {
         </SignedOut>
       </div>
       <div>
-        <h4 className="font-bold text-2xl mb-1">{title}</h4>
+        <div className="flex items-center space-x-2">
+          <h4 className="font-bold text-2xl mb-1">{title}</h4>
+          <p className="font-extralight">{post.community_label}</p>
+        </div>
         <p className="mb-4">{body}</p>
         {image && (
           <img src={image} alt={title} className="w-full h-96 object-fit" />

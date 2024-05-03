@@ -1,5 +1,12 @@
 import { Post } from './Post';
-import { ThumbsUp } from 'lucide-react';
+import {
+  Award,
+  Badge,
+  BadgeAlert,
+  Group,
+  ThumbsUp,
+  University,
+} from 'lucide-react';
 import { Avatar, AvatarFallback } from './ui/avatar';
 import { Button } from './ui/button';
 import { SignUpButton, SignedOut } from '@clerk/nextjs';
@@ -8,7 +15,7 @@ import Link from 'next/link';
 export default function ClickablePost({ post }: { post: Post }) {
   const { title, body, created_at, image, username } = post;
   return (
-    <Link href="/post">
+    <Link href="/community">
       <div className="border-b space-y-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
@@ -32,7 +39,13 @@ export default function ClickablePost({ post }: { post: Post }) {
           </SignedOut>
         </div>
         <div>
-          <h4 className="font-bold text-2xl mb-1">{title}</h4>
+          <div className="flex items-center space-x-2">
+            <h4 className="font-bold text-2xl mb-1">{title}</h4>
+            <div className="flex items-center">
+              <p className="font-extralight">{post.community_label}</p>
+              <Award size={16} />
+            </div>
+          </div>
           <p className="mb-4">{body}</p>
           {image && (
             <img src={image} alt={title} className="w-full h-96 object-fit" />

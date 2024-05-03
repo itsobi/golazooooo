@@ -8,6 +8,7 @@ export type Post = {
   created_at: string;
   image: string;
   community_value: string;
+  community_label: string;
   clerk_user_id: string;
   likes: number;
   username: string;

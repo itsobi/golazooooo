@@ -10,7 +10,10 @@ export default async function Feed() {
   }-${user?.id.slice(-4)}`;
   const supabase = createClient();
 
-  const { data: allTeams } = await supabase.from('teams').select('*');
+  const { data: allTeams } = await supabase
+    .from('teams')
+    .select('*')
+    .order('name', { ascending: true });
   const { data: posts } = await supabase.from('posts').select('*');
 
   return (
