@@ -3,6 +3,7 @@ import TooltipCustom from './Tooltip';
 import { createClient } from '@/supabase/server';
 import LeftMenuSelect from './LeftMenuSelect';
 import { Button } from './ui/button';
+import { auth } from '@clerk/nextjs/server';
 
 export default async function LeftMenu() {
   const supabase = createClient();

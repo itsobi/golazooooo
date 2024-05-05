@@ -1,4 +1,4 @@
-import { auth, currentUser } from '@clerk/nextjs/server';
+import { currentUser } from '@clerk/nextjs/server';
 import PostForm from './PostForm';
 import { createClient } from '@/supabase/server';
 import Post from './Post';

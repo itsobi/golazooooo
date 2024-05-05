@@ -8,6 +8,7 @@ export const createPost = async (
   communityValue: string,
   communityLabel: string,
   username: string,
+  image: string,
   formData: FormData
 ) => {
   const { userId } = auth();
@@ -16,22 +17,14 @@ export const createPost = async (
 
   const title = (formData.get('title') as string).trim();
   const body = (formData.get('body') as string).trim();
-  const image = formData.get('image');
   const newCommunityValue = communityValue ? communityValue : 'general';
+  const newCommunityLabel = communityLabel ? communityLabel : 'General';
 
   if (!userId) throw new Error('User is not authenticated');
 
   if (!title) throw new Error('Title is required');
 
   if (!body) throw new Error('Body is required');
-
-  console.log('Creating post...');
-  console.log('User ID:', userId);
-  console.log('Username:', username);
-  console.log('Title:', title);
-  console.log('Body:', body);
-  console.log('newCommunityValue:', newCommunityValue);
-  console.log('Community Label:', communityLabel);
 
   try {
     // Check if the community exists
@@ -42,34 +35,45 @@ export const createPost = async (
       .single();
 
     if (communityValue !== 'general' && !community) {
-      const { data, error } = await supabase
+      const { error: communityValueError } = await supabase
         .from('communities')
-        .insert([
-          {
-            value: newCommunityValue,
-            label: communityLabel,
-          },
-        ])
+        .insert({
+          value: newCommunityValue,
+          label: communityLabel,
+        })
         .select();
+
+      if (communityValueError)
+        throw new Error(
+          'There was an error creating the community. Please try again.'
+        );
     }
-    const { data, error } = await supabase
+    const { error: postError } = await supabase
       .from('posts')
-      .insert([
-        {
-          body: body,
-          image: image,
-          title: title,
-          clerk_user_id: userId,
-          community_value: newCommunityValue,
-          community_label: communityLabel,
-          username: username,
-        },
-      ])
+      .insert({
+        body: body,
+        image: image,
+        title: title,
+        clerk_user_id: userId,
+        community_value: newCommunityValue,
+        community_label: newCommunityLabel,
+        username: username,
+      })
       .select();
-    console.log('data:', data);
-    console.log('error:', error);
+
+    if (postError)
+      throw new Error(
+        'There was an error creating the post. Please try again.'
+      );
+
+    console.log('POST WAS CREATED!');
     revalidatePath('/');
-  } catch (error) {
-    console.log(error);
+    return {
+      message: 'Post created successfully!',
+    };
+  } catch (error: any) {
+    return {
+      error: error.message,
+    };
   }
 };

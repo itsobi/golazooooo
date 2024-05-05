@@ -32,13 +32,19 @@ export default function NonClickablePost({ post }: { post: Post }) {
       <div>
         <div className="flex items-center space-x-2">
           <h4 className="font-bold text-2xl mb-1">{title}</h4>
-          <p className="font-extralight">{post.community_label}</p>
+          <p className="font-extralight text-slate-400">
+            {post.community_label}
+          </p>
         </div>
         <p className="mb-4">{body}</p>
         {image && (
-          <img src={image} alt={title} className="w-full h-96 object-fit" />
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-96 object-fit mb-6"
+          />
         )}
-        <ThumbsUp className="hover:text-green-400 cursor-pointer" />
+        <ThumbsUp className="hover:text-blue-700 cursor-pointer" />
       </div>
     </div>
   );

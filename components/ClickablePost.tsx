@@ -1,12 +1,5 @@
 import { Post } from './Post';
-import {
-  Award,
-  Badge,
-  BadgeAlert,
-  Group,
-  ThumbsUp,
-  University,
-} from 'lucide-react';
+import { Star, ThumbsUp } from 'lucide-react';
 import { Avatar, AvatarFallback } from './ui/avatar';
 import { Button } from './ui/button';
 import { SignUpButton, SignedOut } from '@clerk/nextjs';
@@ -41,16 +34,21 @@ export default function ClickablePost({ post }: { post: Post }) {
         <div>
           <div className="flex items-center space-x-2">
             <h4 className="font-bold text-2xl mb-1">{title}</h4>
-            <div className="flex items-center">
+            <div className="flex items-center text-blue-700 space-x-1">
               <p className="font-extralight">{post.community_label}</p>
-              <Award size={16} />
+              <Star size={16} />
             </div>
           </div>
           <p className="mb-4">{body}</p>
           {image && (
-            <img src={image} alt={title} className="w-full h-96 object-fit" />
+            <img
+              src={image}
+              alt={title}
+              className="w-full h-96 object-fit mb-6"
+            />
           )}
-          <ThumbsUp className="hover:text-green-400 cursor-pointer" />
+
+          <ThumbsUp className="hover:text-blue-700 cursor-pointer" />
         </div>
       </div>
     </Link>

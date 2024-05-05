@@ -1,10 +1,11 @@
 'use client';
 
-import { CircleHelp } from 'lucide-react';
+import { CircleHelp, Image } from 'lucide-react';
 import TooltipCustom from './Tooltip';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { createPost } from '@/app/actions/posts/actions';
-import { Button } from './ui/button';
+import { toast, useToast } from './ui/use-toast';
+import SubmitButton from './SubmitButton';
 
 export default function PostForm({
   userId,
@@ -20,11 +21,14 @@ export default function PostForm({
   const [communityLabel, setCommunityLabel] = useState('');
   const [body, setBody] = useState('');
   const [image, setImage] = useState('');
-  const updatePostWithCommunityValue = createPost.bind(
+  const imageRef = useRef<HTMLInputElement>(null);
+  const {} = useToast();
+  const createPostWithNewValues = createPost.bind(
     null,
     communityValue,
     communityLabel,
-    username
+    username,
+    image
   );
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -36,6 +40,26 @@ export default function PostForm({
     setCommunityLabel(selectedLabel); // Outputs the label of the selected option
   };
 
+  const handleImagePreview = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        alert('Sorry, only images can be inserted into a post.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = (readerEvent) => {
+        const dataUrl = readerEvent.target?.result;
+        console.log('dataUrl', dataUrl);
+        setImage(dataUrl as string);
+      };
+    }
+  };
+
   const resetForm = () => {
     setTitle('');
     setCommunityValue('');
@@ -45,9 +69,20 @@ export default function PostForm({
 
   return (
     <form
-      action={(formData) => {
+      action={async (formData) => {
         resetForm();
-        updatePostWithCommunityValue(formData);
+        const result = await createPostWithNewValues(formData);
+
+        if (result?.message) {
+          toast({
+            description: result.message,
+          });
+        } else {
+          toast({
+            description: result.error,
+            variant: 'destructive',
+          });
+        }
       }}
       className="flex-col space-y-4 border-b pb-4"
     >
@@ -56,15 +91,11 @@ export default function PostForm({
         <input
           name="title"
           disabled={!userId}
-          placeholder={
-            userId
-              ? 'Enter a title to create a post'
-              : 'Sign in to create a post'
-          }
+          placeholder={userId ? 'Title of post' : 'Sign up to create a post'}
           type="text"
           className={`${
             userId ? 'cursor-default' : 'cursor-not-allowed'
-          } outline-none bg-slate-50 w-full rounded-full px-4 py-2`}
+          } outline-none bg-slate-100 w-full rounded-lg px-4 py-2`}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -79,7 +110,7 @@ export default function PostForm({
               name="community"
               value={communityValue}
               onChange={handleSelectChange}
-              className="outline-none border rounded bg-slate-50 p-2"
+              className="outline-none border rounded-lg bg-slate-100 p-2"
             >
               <option value="">Teams</option>
               {allTeams?.map((team) => (
@@ -91,19 +122,7 @@ export default function PostForm({
 
             <TooltipCustom
               icon={<CircleHelp size={18} />}
-              hoverText="Your post will go into the community of whichever team you select here. If a team is not selected, the post will go into the general community."
-            />
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <label>Image:</label>
-            <input
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-              name="image"
-              placeholder="Past the URL to an image to include in the post (optional)"
-              type="text"
-              className="outline-none bg-slate-50 w-full rounded-full px-4 py-2"
+              hoverText="Your post will go into the community of whichever team you select here. If a team is not selected, the post will go into the general feed shown below."
             />
           </div>
 
@@ -113,17 +132,44 @@ export default function PostForm({
               name="body"
               value={body}
               onChange={(e) => setBody(e.target.value)}
-              placeholder="Enter a title to create a post"
-              className={`bg-slate-50 outline-none w-full px-4 py-2 h-14`}
+              placeholder="Body of post"
+              className="bg-slate-100 outline-none w-full px-4 py-2 h-14 rounded-lg"
             />
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <label>Image (optional):</label>
+            {!image && (
+              <span className="bg-slate-100 p-2 rounded-full transition-all duration-150 hover:bg-blue-700 hover:text-white cursor-pointer">
+                <Image onClick={() => imageRef?.current?.click()} />
+              </span>
+            )}
+            <input
+              type="file"
+              className="hidden"
+              ref={imageRef}
+              onChange={handleImagePreview}
+            />
+
+            {image && (
+              <>
+                <img
+                  src={image}
+                  alt="Image preview"
+                  className="w-24 h-24 object-contain rounded"
+                />
+                <span
+                  onClick={() => setImage('')}
+                  className="text-red-600 hover:scale-105 transition duration-150 cursor-pointer"
+                >
+                  Remove image
+                </span>
+              </>
+            )}
           </div>
         </>
       )}
-      {title && body && (
-        <Button type="submit" className="w-full rounded-full">
-          Create post
-        </Button>
-      )}
+      {title && body && <SubmitButton />}
     </form>
   );
 }
