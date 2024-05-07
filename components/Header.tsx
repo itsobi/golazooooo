@@ -1,4 +1,3 @@
-import { Search } from 'lucide-react';
 import HeaderSearch from './HeaderSearch';
 import { auth } from '@clerk/nextjs/server';
 import { SignInButton, UserButton } from '@clerk/nextjs';

@@ -2,7 +2,7 @@ import ClickablePost from './ClickablePost';
 import NonClickablePost from './NonClickablePost';
 
 export type Post = {
-  id: string;
+  id: number;
   title: string;
   body: string;
   created_at: string;

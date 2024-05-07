@@ -3,8 +3,8 @@
 import { CircleHelp, Image } from 'lucide-react';
 import TooltipCustom from './Tooltip';
 import { useRef, useState } from 'react';
-import { createPost } from '@/app/actions/posts/actions';
-import { toast, useToast } from './ui/use-toast';
+import { createPost } from '@/app/actions/posts/createPost';
+import { useToast } from './ui/use-toast';
 import SubmitButton from './SubmitButton';
 
 export default function PostForm({
@@ -19,10 +19,11 @@ export default function PostForm({
   const [title, setTitle] = useState('');
   const [communityValue, setCommunityValue] = useState('');
   const [communityLabel, setCommunityLabel] = useState('');
+  console.log('communityLabel', communityLabel);
   const [body, setBody] = useState('');
   const [image, setImage] = useState('');
   const imageRef = useRef<HTMLInputElement>(null);
-  const {} = useToast();
+  const { toast } = useToast();
   const createPostWithNewValues = createPost.bind(
     null,
     communityValue,
@@ -36,7 +37,7 @@ export default function PostForm({
     setCommunityValue(selectedValue);
 
     const selectedTeam = allTeams?.find((team) => team.value === selectedValue);
-    const selectedLabel = selectedTeam?.label;
+    const selectedLabel = selectedTeam?.name;
     setCommunityLabel(selectedLabel); // Outputs the label of the selected option
   };
 
@@ -45,7 +46,11 @@ export default function PostForm({
 
     if (file) {
       if (!file.type.startsWith('image/')) {
-        alert('Sorry, only images can be inserted into a post.');
+        toast({
+          title: 'Non-image file type',
+          description: 'Sorry, only images can be inserted into a post.',
+          variant: 'destructive',
+        });
         return;
       }
 

@@ -1,22 +1,16 @@
 import { Post } from './Post';
-import { ThumbsUp } from 'lucide-react';
-import { Avatar, AvatarFallback } from './ui/avatar';
 import { Button } from './ui/button';
 import { SignUpButton, SignedOut } from '@clerk/nextjs';
+import LikeButton from './LikeButton';
 
 export default function NonClickablePost({ post }: { post: Post }) {
   const { title, body, created_at, image, username } = post;
   return (
-    <div className="border-b space-y-4 py-4">
-      <div className="flex items-center justify-between">
+    <div className="border-b space-y-4 p-4 bg-gray-100 my-4">
+      <div className="flex items-center justify-between font-thin">
         <div className="flex items-center space-x-2">
-          <Avatar>
-            <AvatarFallback>
-              {username.slice(1, 3).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
           <p className="text-sm">{username}</p>
-          <p className="text-xs font-light text-gray-400">
+          <p className="text-xs text-gray-400">
             {new Date(created_at as string).toLocaleDateString()}
           </p>
         </div>
@@ -31,7 +25,7 @@ export default function NonClickablePost({ post }: { post: Post }) {
       </div>
       <div>
         <div className="flex items-center space-x-2">
-          <h4 className="font-bold text-2xl mb-1">{title}</h4>
+          <h4 className="font-semibold text-xl mb-1">{title}</h4>
           <p className="font-extralight text-slate-400">
             {post.community_label}
           </p>
@@ -44,7 +38,7 @@ export default function NonClickablePost({ post }: { post: Post }) {
             className="w-full h-96 object-fit mb-6"
           />
         )}
-        <ThumbsUp className="hover:text-blue-700 cursor-pointer" />
+        <LikeButton postId={post.id} clerkUserId={post.clerk_user_id} />
       </div>
     </div>
   );

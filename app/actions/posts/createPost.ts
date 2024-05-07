@@ -34,6 +34,7 @@ export const createPost = async (
       .eq('value', newCommunityValue)
       .single();
 
+    // creating row in communities table that is NOT general
     if (communityValue !== 'general' && !community) {
       const { error: communityValueError } = await supabase
         .from('communities')
@@ -48,7 +49,9 @@ export const createPost = async (
           'There was an error creating the community. Please try again.'
         );
     }
-    const { error: postError } = await supabase
+
+    // Create the post
+    const { data: post, error: postError } = await supabase
       .from('posts')
       .insert({
         body: body,

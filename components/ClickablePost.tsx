@@ -1,24 +1,24 @@
 import { Post } from './Post';
 import { Star, ThumbsUp } from 'lucide-react';
-import { Avatar, AvatarFallback } from './ui/avatar';
 import { Button } from './ui/button';
 import { SignUpButton, SignedOut } from '@clerk/nextjs';
 import Link from 'next/link';
+import LikeButton from './LikeButton';
 
 export default function ClickablePost({ post }: { post: Post }) {
   const { title, body, created_at, image, username } = post;
   return (
-    <Link href="/community">
-      <div className="border-b space-y-4 py-4">
+    <Link
+      href={{
+        pathname: `post/${post.community_value}`,
+        query: { postId: post.id },
+      }}
+    >
+      <div className="border-b space-y-4 p-4 bg-gray-100 my-4 hover:bg-gray-200 transition duration-150">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Avatar>
-              <AvatarFallback>
-                {username.slice(1, 3).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
+          <div className="flex items-center space-x-2 font-thin">
             <p className="text-sm">{username}</p>
-            <p className="text-xs font-light text-gray-400">
+            <p className="text-xs text-gray-400">
               {new Date(created_at as string).toLocaleDateString()}
             </p>
           </div>
@@ -33,7 +33,7 @@ export default function ClickablePost({ post }: { post: Post }) {
         </div>
         <div>
           <div className="flex items-center space-x-2">
-            <h4 className="font-bold text-2xl mb-1">{title}</h4>
+            <h4 className="font-semibold text-xl mb-1">{title}</h4>
             <div className="flex items-center text-blue-700 space-x-1">
               <p className="font-extralight">{post.community_label}</p>
               <Star size={16} />
@@ -48,7 +48,7 @@ export default function ClickablePost({ post }: { post: Post }) {
             />
           )}
 
-          <ThumbsUp className="hover:text-blue-700 cursor-pointer" />
+          <LikeButton postId={post.id} clerkUserId={post.clerk_user_id} />
         </div>
       </div>
     </Link>
