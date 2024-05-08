@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 
 export default function CommunityWidget() {
   return (
-    <section className="hidden lg:inline-grid lg:col-span-2 lg:mr-4 border rounded max-h-72 overflow-y-scroll sticky top-8">
+    <section className="hidden xl:inline-grid xl:col-span-2 md:mr-4 border rounded max-h-72 overflow-y-scroll sticky top-8">
       <div>
         <h4 className="font-bold text-center py-6">Top Communities</h4>
         <div className="flex justify-center xl:justify-normal items-center space-x-2 mb-2 px-6 border-b pb-4">

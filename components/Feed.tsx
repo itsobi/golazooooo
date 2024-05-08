@@ -17,7 +17,7 @@ export default async function Feed() {
   const { data: posts } = await supabase.from('posts').select('*');
 
   return (
-    <section className="col-span-full mx-4 md:mx-0 md:ml-4 md:col-span-6 xl:ml-0 xl:col-span-4 p-4">
+    <section className="col-span-8 md:col-span-6 xl:col-span-4 mx-4 xl:mx-0">
       {user?.id && (
         <PostForm userId={user.id} username={username} allTeams={allTeams} />
       )}

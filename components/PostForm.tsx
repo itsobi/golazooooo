@@ -19,7 +19,6 @@ export default function PostForm({
   const [title, setTitle] = useState('');
   const [communityValue, setCommunityValue] = useState('');
   const [communityLabel, setCommunityLabel] = useState('');
-  console.log('communityLabel', communityLabel);
   const [body, setBody] = useState('');
   const [image, setImage] = useState('');
   const imageRef = useRef<HTMLInputElement>(null);
@@ -48,7 +47,7 @@ export default function PostForm({
       if (!file.type.startsWith('image/')) {
         toast({
           title: 'Non-image file type',
-          description: 'Sorry, only images can be inserted into a post.',
+          description: 'Sorry, only images can be used in a post.',
           variant: 'destructive',
         });
         return;
@@ -59,7 +58,6 @@ export default function PostForm({
 
       reader.onload = (readerEvent) => {
         const dataUrl = readerEvent.target?.result;
-        console.log('dataUrl', dataUrl);
         setImage(dataUrl as string);
       };
     }
@@ -100,7 +98,7 @@ export default function PostForm({
           type="text"
           className={`${
             userId ? 'cursor-default' : 'cursor-not-allowed'
-          } outline-none bg-slate-100 w-full rounded-lg px-4 py-2`}
+          } outline-none bg-gray-100 w-full rounded-lg px-4 py-2`}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -115,7 +113,7 @@ export default function PostForm({
               name="community"
               value={communityValue}
               onChange={handleSelectChange}
-              className="outline-none border rounded-lg bg-slate-100 p-2"
+              className="outline-none border rounded-lg bg-gray-100 p-2"
             >
               <option value="">Teams</option>
               {allTeams?.map((team) => (
@@ -138,14 +136,14 @@ export default function PostForm({
               value={body}
               onChange={(e) => setBody(e.target.value)}
               placeholder="Body of post"
-              className="bg-slate-100 outline-none w-full px-4 py-2 h-14 rounded-lg"
+              className="bg-gray-100 outline-none w-full px-4 py-2 h-14 rounded-lg"
             />
           </div>
 
           <div className="flex items-center space-x-2">
             <label>Image (optional):</label>
             {!image && (
-              <span className="bg-slate-100 p-2 rounded-full transition-all duration-150 hover:bg-blue-700 hover:text-white cursor-pointer">
+              <span className="bg-gray-100 p-2 rounded-full transition-all duration-150 hover:bg-blue-700 hover:text-white cursor-pointer">
                 <Image onClick={() => imageRef?.current?.click()} />
               </span>
             )}

@@ -1,4 +1,5 @@
 import CommunityWidget from '@/components/CommunityWidget';
+import CommunityWidgetSmall from '@/components/CommunityWidgetSmall';
 import Feed from '@/components/Feed';
 import LeftMenu from '@/components/LeftMenu';
 
@@ -10,6 +11,9 @@ export default function Home() {
       <Feed />
 
       <CommunityWidget />
+
+      {/* CommunityWidgetSmall only appears on medium screen */}
+      <CommunityWidgetSmall />
     </div>
   );
 }

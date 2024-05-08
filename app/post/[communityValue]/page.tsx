@@ -1,4 +1,5 @@
 import BackButton from '@/components/BackButton';
+import CommentSection from '@/components/CommentSection';
 import { createClient } from '@/supabase/server';
 
 export default async function Post({
@@ -20,8 +21,10 @@ export default async function Post({
   console.log(post?.[0].created_at);
 
   return (
-    <main className="max-w-4xl mx-auto bg-red-100 px-4 lg:px-0">
-      <BackButton />
+    <main className="bg-green-100 max-w-4xl mx-auto w-full">
+      <div className="mb-6">
+        <BackButton />
+      </div>
 
       <div className="flex space-x-2 text-sm font-thin">
         <p>
@@ -32,7 +35,7 @@ export default async function Post({
         </p>
       </div>
       <div className="flex-col space-y-4">
-        <h1 className="font-semibold text-2xl">{post?.[0].title}</h1>
+        <h1 className="font-semibold text-xl">{post?.[0].title}</h1>
         <p>{post?.[0].body}</p>
         {post?.[0].image && (
           <img
@@ -42,6 +45,8 @@ export default async function Post({
           />
         )}
       </div>
+
+      <CommentSection />
     </main>
   );
 }

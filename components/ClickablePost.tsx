@@ -1,9 +1,9 @@
 import { Post } from './Post';
-import { Star, ThumbsUp } from 'lucide-react';
 import { Button } from './ui/button';
 import { SignUpButton, SignedOut } from '@clerk/nextjs';
 import Link from 'next/link';
 import LikeButton from './LikeButton';
+import { Badge } from './ui/badge';
 
 export default function ClickablePost({ post }: { post: Post }) {
   const { title, body, created_at, image, username } = post;
@@ -34,10 +34,7 @@ export default function ClickablePost({ post }: { post: Post }) {
         <div>
           <div className="flex items-center space-x-2">
             <h4 className="font-semibold text-xl mb-1">{title}</h4>
-            <div className="flex items-center text-blue-700 space-x-1">
-              <p className="font-extralight">{post.community_label}</p>
-              <Star size={16} />
-            </div>
+            <Badge className="bg-blue-700">{post.community_label}</Badge>
           </div>
           <p className="mb-4">{body}</p>
           {image && (
