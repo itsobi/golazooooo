@@ -21,7 +21,7 @@ export default async function Post({
   console.log(post?.[0].created_at);
 
   return (
-    <main className="bg-green-100 max-w-4xl mx-auto w-full">
+    <main className="max-w-4xl mx-auto w-full">
       <div className="mb-6">
         <BackButton />
       </div>

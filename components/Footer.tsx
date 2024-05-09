@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <div className="mt-auto sticky bottom-0 hidden xl:inline-flex">
+    <div className="mt-auto sticky bottom-0 hidden xl:inline-flex bg-transparent">
       <p className="text-xs text-slate-400 ml-2 mb-2">
         Brought to you by: {''}
         <Link

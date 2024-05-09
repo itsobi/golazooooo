@@ -3,54 +3,30 @@ import { Button } from './ui/button';
 
 export default function CommunityWidget() {
   return (
-    <section className="hidden xl:inline-grid xl:col-span-2 md:mr-4 border rounded max-h-72 overflow-y-scroll sticky top-8">
+    <section className="hidden md:inline-grid md:col-span-2 md:mr-4 max-h-72 overflow-y-scroll">
       <div>
-        <h4 className="font-bold text-center py-6">Top Communities</h4>
-        <div className="flex justify-center xl:justify-normal items-center space-x-2 mb-2 px-6 border-b pb-4">
+        <h4 className="font-semibold p-2">Top Communities</h4>
+        <div className="flex justify-center xl:justify-normal items-center space-x-2 p-4 hover:bg-gray-100 cursor-pointer">
           <Avatar>
             <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
 
-          <div className="flex-1">
+          <div className="flex-1 justify-center">
             <p>Label here</p>
             <p className="text-xs font-extralight">Created 2 days ago</p>
           </div>
-
-          <Button size="sm" className="hidden xl:flex">
-            View
-          </Button>
         </div>
-
-        <div className="flex justify-center xl:justify-normal items-center space-x-2 mb-2 px-6 border-b pb-4">
+        <div className="flex justify-center xl:justify-normal items-center space-x-2 p-4 hover:bg-gray-100 cursor-pointer">
           <Avatar>
             <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
 
-          <div className="flex-1">
+          <div className="flex-1 justify-center">
             <p>Label here</p>
             <p className="text-xs font-extralight">Created 2 days ago</p>
           </div>
-
-          <Button size="sm" className="hidden xl:flex">
-            View
-          </Button>
-        </div>
-        <div className="flex justify-center xl:justify-normal items-center space-x-2 mb-2 px-6 pb-4">
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-
-          <div className="flex-1">
-            <p>Label here</p>
-            <p className="text-xs font-extralight">Created 2 days ago</p>
-          </div>
-
-          <Button size="sm" className="hidden xl:flex">
-            View
-          </Button>
         </div>
       </div>
     </section>
