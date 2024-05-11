@@ -1,6 +1,6 @@
 'use client';
 
-import { likePost } from '@/app/actions/posts/likePost';
+import { likePost } from '@/actions/posts/likePost';
 import { ThumbsUp } from 'lucide-react';
 
 export default function LikeButton({
