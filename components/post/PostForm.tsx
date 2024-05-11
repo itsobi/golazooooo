@@ -1,10 +1,10 @@
 'use client';
 
 import { CircleHelp, Image } from 'lucide-react';
-import TooltipCustom from './Tooltip';
+import TooltipCustom from '../Tooltip';
 import { useRef, useState } from 'react';
 import { createPost } from '@/app/actions/posts/createPost';
-import { useToast } from './ui/use-toast';
+import { useToast } from '../ui/use-toast';
 import SubmitButton from './SubmitButton';
 
 export default function PostForm({

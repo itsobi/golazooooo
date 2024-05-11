@@ -1,6 +1,11 @@
 import BackButton from '@/components/BackButton';
 import CommentSection from '@/components/CommentSection';
+import DeleteButton from '@/components/DeleteButton';
+import { Button } from '@/components/ui/button';
 import { createClient } from '@/supabase/server';
+import { SignedIn } from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs/server';
+import { Ellipsis, Trash2 } from 'lucide-react';
 
 export default async function Post({
   params,
@@ -9,6 +14,7 @@ export default async function Post({
   params: { communityValue: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  const { userId } = auth();
   const supabase = createClient();
 
   // query the database for posts with the community_value and post_id
@@ -18,30 +24,29 @@ export default async function Post({
     .eq('community_value', params.communityValue)
     .eq('id', searchParams.postId);
 
-  console.log(post?.[0].created_at);
-
   return (
-    <main className="max-w-4xl mx-auto w-full">
-      <div className="mb-6">
-        <BackButton />
-      </div>
-
-      <div className="flex space-x-2 text-sm font-thin">
-        <p>
+    <main className="max-w-4xl mx-auto w-full px-4 lg:px-0">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-2">
+          <BackButton />
           <p>{post?.[0].username}</p>
-        </p>
-        <p>
-          <p>{new Date(post?.[0].created_at).toLocaleDateString()}</p>
-        </p>
+
+          <p className="text-sm font-thin">
+            {new Date(post?.[0].created_at).toLocaleDateString()}
+          </p>
+        </div>
+        <SignedIn>
+          {userId === post?.[0].clerk_user_id && <DeleteButton />}
+        </SignedIn>
       </div>
       <div className="flex-col space-y-4">
-        <h1 className="font-semibold text-xl">{post?.[0].title}</h1>
+        <h1 className="font-semibold text-2xl">{post?.[0].title}</h1>
         <p>{post?.[0].body}</p>
         {post?.[0].image && (
           <img
             src={post?.[0].image}
             alt={post?.[0].title}
-            className="w-full h-96 object-fit mb-6"
+            className="w-full h-96 object-contain mb-6"
           />
         )}
       </div>

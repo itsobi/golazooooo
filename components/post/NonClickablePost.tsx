@@ -1,7 +1,7 @@
 import { Post } from './Post';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import { SignUpButton, SignedOut } from '@clerk/nextjs';
-import LikeButton from './LikeButton';
+import LikeButton from '../LikeButton';
 
 export default function NonClickablePost({ post }: { post: Post }) {
   const { title, body, created_at, image, username } = post;

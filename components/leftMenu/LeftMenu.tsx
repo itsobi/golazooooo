@@ -1,8 +1,8 @@
 import { CircleHelp } from 'lucide-react';
-import TooltipCustom from './Tooltip';
+import TooltipCustom from '../Tooltip';
 import { createClient } from '@/supabase/server';
 import LeftMenuSelect from './LeftMenuSelect';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import { auth } from '@clerk/nextjs/server';
 
 export default async function LeftMenu() {
@@ -18,7 +18,7 @@ export default async function LeftMenu() {
     .eq('league', 'MLS');
 
   return (
-    <form className="hidden xl:inline-grid xl:col-span-2 p-6 xl:ml-4 rounded h-fit scroll-m-0 space-y-4">
+    <>
       <div className="space-y-1">
         <div className="flex items-center space-x-2">
           <h4 className="font-bold">English Premier League</h4>
@@ -55,6 +55,6 @@ export default async function LeftMenu() {
         </select>
       </div>
       <Button type="submit">Visit</Button>
-    </form>
+    </>
   );
 }

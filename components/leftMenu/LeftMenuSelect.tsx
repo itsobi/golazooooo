@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import { useState } from 'react';
 
 export default function LeftMenuSelect({ teams }: { teams: any[] | null }) {

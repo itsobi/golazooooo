@@ -1,9 +1,10 @@
 import { Post } from './Post';
-import { Button } from './ui/button';
-import { SignUpButton, SignedOut } from '@clerk/nextjs';
+import { Button } from '../ui/button';
+import { SignUpButton, SignedIn, SignedOut } from '@clerk/nextjs';
 import Link from 'next/link';
-import LikeButton from './LikeButton';
-import { Badge } from './ui/badge';
+import LikeButton from '../LikeButton';
+import { Badge } from '../ui/badge';
+import { Ellipsis } from 'lucide-react';
 
 export default function ClickablePost({ post }: { post: Post }) {
   const { title, body, created_at, image, username } = post;
@@ -41,7 +42,7 @@ export default function ClickablePost({ post }: { post: Post }) {
             <img
               src={image}
               alt={title}
-              className="w-full h-96 object-fit mb-6"
+              className="w-full h-96 object-contain mb-6"
             />
           )}
 

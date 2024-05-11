@@ -1,7 +1,7 @@
 import { currentUser } from '@clerk/nextjs/server';
-import PostForm from './PostForm';
+import PostForm from './post/PostForm';
 import { createClient } from '@/supabase/server';
-import Post from './Post';
+import Post from './post/Post';
 
 export default async function Feed() {
   const user = await currentUser();
@@ -14,10 +14,13 @@ export default async function Feed() {
     .from('teams')
     .select('*')
     .order('name', { ascending: true });
-  const { data: posts } = await supabase.from('posts').select('*');
+  const { data: posts } = await supabase
+    .from('posts')
+    .select('*')
+    .order('created_at', { ascending: false });
 
   return (
-    <section className="px-4 col-span-8 md:col-span-6 xl:col-span-4 max-h-screen overflow-y-scroll border-x">
+    <>
       {user?.id && (
         <PostForm userId={user.id} username={username} allTeams={allTeams} />
       )}
@@ -25,6 +28,6 @@ export default async function Feed() {
       {posts?.map((post) => (
         <Post key={post.id} post={post} />
       ))}
-    </section>
+    </>
   );
 }
