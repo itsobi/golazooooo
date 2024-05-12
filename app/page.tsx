@@ -5,7 +5,7 @@ import LeftMenu from '@/components/leftMenu/LeftMenu';
 export default function Home() {
   return (
     <div className="grid grid-cols-8 gap-4 overflow-y-hidden">
-      <form className="hidden xl:inline-grid xl:col-span-2 p-6 xl:ml-4 rounded h-fit scroll-m-0 space-y-4">
+      <form className="hidden xl:inline-grid xl:col-span-2 p-2 xl:ml-4 rounded h-fit scroll-m-0 space-y-4">
         <LeftMenu />
       </form>
 

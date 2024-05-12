@@ -1,17 +1,16 @@
 import { Post } from './Post';
 import { Button } from '../ui/button';
-import { SignUpButton, SignedIn, SignedOut } from '@clerk/nextjs';
+import { SignUpButton, SignedOut } from '@clerk/nextjs';
 import Link from 'next/link';
 import LikeButton from '../LikeButton';
 import { Badge } from '../ui/badge';
-import { Ellipsis } from 'lucide-react';
 
 export default function ClickablePost({ post }: { post: Post }) {
   const { title, body, created_at, image, username } = post;
   return (
     <Link
       href={{
-        pathname: `post/${post.community_value}`,
+        pathname: `/post/${post.community_value}`,
         query: { postId: post.id },
       }}
     >

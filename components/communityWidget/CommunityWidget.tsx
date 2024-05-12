@@ -18,8 +18,8 @@ export default async function CommunityWidget() {
   return (
     <div className="bg-gray-100 p-4">
       <h4 className="font-semibold mb-4">Top Communities</h4>
-      {communities?.map((community) => (
-        <CommunityWidgetRow community={community} />
+      {communities?.map((community, index) => (
+        <CommunityWidgetRow community={community} key={index} />
       ))}
     </div>
   );
