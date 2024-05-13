@@ -13,6 +13,7 @@ export const createComment = async (
   auth().protect();
   const comment = (formData.get('comment') as string).trim();
 
+  if (!userId) throw new Error('User ID is required');
   if (!comment) throw new Error('Comment is required');
 
   const supabase = createClient();
