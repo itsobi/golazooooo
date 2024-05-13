@@ -3,7 +3,7 @@
 import { useFormStatus } from 'react-dom';
 import { Button } from '../ui/button';
 
-export default function SubmitButton() {
+export default function SendPost() {
   const { pending } = useFormStatus();
   return (
     <Button type="submit" disabled={pending} className={`w-full rounded-full`}>

@@ -5,14 +5,14 @@ import TooltipCustom from '../Tooltip';
 import { useRef, useState } from 'react';
 import { createPost } from '@/actions/posts/createPost';
 import { useToast } from '../ui/use-toast';
-import SubmitButton from './SubmitButton';
+import SendPost from './SendPost';
 
 export default function PostForm({
   userId,
   username,
   allTeams,
 }: {
-  userId: string | null;
+  userId: string | undefined;
   username: string;
   allTeams: any[] | null;
 }) {
@@ -94,7 +94,7 @@ export default function PostForm({
         <input
           name="title"
           disabled={!userId}
-          placeholder={userId ? 'Title of post' : 'Sign up to create a post'}
+          placeholder={userId ? 'Title of post' : 'Sign in to create a post'}
           type="text"
           className={`${
             userId ? 'cursor-default' : 'cursor-not-allowed'
@@ -106,7 +106,6 @@ export default function PostForm({
 
       {title && (
         <>
-          {/* TODO: get value of community chosen */}
           <div className="flex items-center space-x-2">
             <label>Community:</label>
             <select
@@ -172,7 +171,7 @@ export default function PostForm({
           </div>
         </>
       )}
-      {title && body && <SubmitButton />}
+      {title && body && <SendPost />}
     </form>
   );
 }

@@ -18,11 +18,11 @@ export default function Header() {
       />
 
       {userId ? (
-        <div className="">
+        <div>
           <UserButton />
         </div>
       ) : (
-        <div className="">
+        <div>
           <SignInButton mode="modal">
             <Button>Sign In</Button>
           </SignInButton>

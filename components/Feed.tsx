@@ -21,9 +21,7 @@ export default async function Feed() {
 
   return (
     <>
-      {user?.id && (
-        <PostForm userId={user.id} username={username} allTeams={allTeams} />
-      )}
+      <PostForm userId={user?.id} username={username} allTeams={allTeams} />
 
       {posts?.map((post) => (
         <Post key={post.id} post={post} />

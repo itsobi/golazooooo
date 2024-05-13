@@ -57,7 +57,7 @@ export const createPost = async (
         body: body,
         image: image,
         title: title,
-        clerk_user_id: userId,
+        author: userId,
         community_value: newCommunityValue,
         community_label: newCommunityLabel,
         username: username,
@@ -69,7 +69,6 @@ export const createPost = async (
         'There was an error creating the post. Please try again.'
       );
 
-    console.log('POST WAS CREATED!');
     revalidatePath('/');
     return {
       message: 'Post created successfully!',

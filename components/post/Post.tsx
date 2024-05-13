@@ -9,7 +9,7 @@ export type Post = {
   image: string;
   community_value: string;
   community_label: string;
-  clerk_user_id: string;
+  author: string;
   likes: number;
   username: string;
 };

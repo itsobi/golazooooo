@@ -1,11 +1,11 @@
 import BackButton from '@/components/BackButton';
-import CommentSection from '@/components/CommentSection';
 import DeleteButton from '@/components/DeleteButton';
-import { Button } from '@/components/ui/button';
+import CommentForm from '@/components/comments/CommentForm';
+import Comments from '@/components/comments/Comments';
+import TimeAgoDate from '@/components/post/TimeAgoDate';
 import { createClient } from '@/supabase/server';
 import { SignedIn } from '@clerk/nextjs';
 import { auth } from '@clerk/nextjs/server';
-import { Ellipsis, Trash2 } from 'lucide-react';
 
 export default async function Post({
   params,
@@ -30,28 +30,29 @@ export default async function Post({
         <div className="flex items-center space-x-2">
           <BackButton />
           <p>{post?.[0].username}</p>
-
-          <p className="text-sm font-thin">
-            {new Date(post?.[0].created_at).toLocaleDateString()}
-          </p>
+          <TimeAgoDate date={post?.[0].created_at} />
         </div>
-        <SignedIn>
-          {userId === post?.[0].clerk_user_id && <DeleteButton />}
-        </SignedIn>
+        <SignedIn>{userId === post?.[0].author && <DeleteButton />}</SignedIn>
       </div>
-      <div className="flex-col space-y-4">
+      <div className="flex-col space-y-4 pb-4">
         <h1 className="font-semibold text-2xl">{post?.[0].title}</h1>
         <p>{post?.[0].body}</p>
         {post?.[0].image && (
           <img
             src={post?.[0].image}
             alt={post?.[0].title}
-            className="w-full h-96 object-contain mb-6"
+            className="object-contain mb-6"
           />
         )}
       </div>
 
-      <CommentSection />
+      <div className="space-y-4">
+        <CommentForm
+          postId={post?.[0].id}
+          communityValue={params.communityValue}
+        />
+        <Comments />
+      </div>
     </main>
   );
 }
