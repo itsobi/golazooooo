@@ -32,6 +32,7 @@ export const createComment = async (
           post_id: postId,
           text: comment,
           username: username,
+          community_value: communityValue,
         },
       ])
       .select();

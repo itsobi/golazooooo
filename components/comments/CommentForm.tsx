@@ -3,34 +3,49 @@
 import { useRef, useState } from 'react';
 import { Button } from '../ui/button';
 import { Plus } from 'lucide-react';
-import { createComment } from '@/actions/comments/createComment';
 import { SignInButton, useUser } from '@clerk/nextjs';
 import { toast } from '../ui/use-toast';
 import SendComment from './SendComment';
 
+type CommentFormProps = {
+  postId: string;
+  communityValue: string;
+  serverAction: (
+    postId: string,
+    userId: string | undefined,
+    communityValue: string,
+    formData: FormData
+  ) => Promise<
+    | {
+        message: string;
+        error?: undefined;
+      }
+    | {
+        error: any;
+        message?: undefined;
+      }
+  >;
+};
+
 export default function CommentForm({
   postId,
   communityValue,
-}: {
-  postId: string;
-  communityValue: string;
-}) {
+  serverAction,
+}: CommentFormProps) {
   const { user } = useUser();
   const [showForm, setShowForm] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
-
-  const createCommentWithNewValues = createComment.bind(
-    null,
-    postId,
-    user?.id,
-    communityValue
-  );
 
   return showForm ? (
     <form
       ref={formRef}
       action={async (formData) => {
-        const result = await createCommentWithNewValues(formData);
+        const result = await serverAction(
+          postId,
+          user?.id,
+          communityValue,
+          formData
+        );
 
         if (result?.message) {
           toast({
@@ -46,11 +61,23 @@ export default function CommentForm({
       }}
       className="flex-col w-full lg:mt-4"
     >
-      <textarea
-        name="comment"
-        className="w-full border rounded outline-none p-2"
-      />
-      <SendComment />
+      <div className="border rounded">
+        <textarea
+          name="comment"
+          className="w-full outline-none p-2 min-h-10"
+          placeholder="Insert comment here"
+        />
+        <div className="flex items-center space-x-2 justify-end p-1">
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={() => setShowForm(false)}
+          >
+            Cancel
+          </Button>
+          <SendComment />
+        </div>
+      </div>
     </form>
   ) : user?.id ? (
     <Button className="mt-4" onClick={() => setShowForm(true)}>

@@ -1,3 +1,4 @@
+import { createComment } from '@/actions/comments/createComment';
 import BackButton from '@/components/BackButton';
 import DeleteButton from '@/components/DeleteButton';
 import CommentForm from '@/components/comments/CommentForm';
@@ -18,18 +19,23 @@ export default async function Post({
   const supabase = createClient();
 
   // query the database for posts with the community_value and post_id
-  const { data: post, error } = await supabase
+  const { data: post, error: postError } = await supabase
     .from('posts')
     .select('*')
     .eq('community_value', params.communityValue)
     .eq('id', searchParams.postId);
+
+  const { data: comments, error: commentsError } = await supabase
+    .from('comments')
+    .select('*')
+    .eq('post_id', searchParams.postId);
 
   return (
     <main className="max-w-4xl mx-auto w-full px-4 lg:px-0">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <BackButton />
-          <p>{post?.[0].username}</p>
+          <p className="text-sm font-semibold">{post?.[0].username}</p>
           <TimeAgoDate date={post?.[0].created_at} />
         </div>
         <SignedIn>{userId === post?.[0].author && <DeleteButton />}</SignedIn>
@@ -46,12 +52,13 @@ export default async function Post({
         )}
       </div>
 
-      <div className="space-y-4">
+      <div className="mb-10">
         <CommentForm
           postId={post?.[0].id}
           communityValue={params.communityValue}
+          serverAction={createComment}
         />
-        <Comments />
+        <Comments comments={comments} />
       </div>
     </main>
   );

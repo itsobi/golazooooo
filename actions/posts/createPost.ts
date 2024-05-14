@@ -11,6 +11,7 @@ export const createPost = async (
   image: string,
   formData: FormData
 ) => {
+  auth().protect();
   const { userId } = auth();
 
   const supabase = createClient();
@@ -19,8 +20,6 @@ export const createPost = async (
   const body = (formData.get('body') as string).trim();
   const newCommunityValue = communityValue ? communityValue : 'general';
   const newCommunityLabel = communityLabel ? communityLabel : 'General';
-
-  if (!userId) throw new Error('User is not authenticated');
 
   if (!title) throw new Error('Title is required');
 

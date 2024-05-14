@@ -5,9 +5,8 @@ import { Trash2 } from 'lucide-react';
 
 export default function DeleteButton() {
   return (
-    <Button variant="destructive" className="rounded-full">
+    <Button variant="destructive" size="icon">
       <Trash2 />
-      Delete post
     </Button>
   );
 }
