@@ -8,10 +8,10 @@ import { toast } from '../ui/use-toast';
 import SendComment from './SendComment';
 
 type CommentFormProps = {
-  postId: string;
+  postId: number;
   communityValue: string;
   serverAction: (
-    postId: string,
+    postId: number,
     userId: string | undefined,
     communityValue: string,
     formData: FormData
@@ -58,6 +58,7 @@ export default function CommentForm({
           });
         }
         formRef.current?.reset();
+        setShowForm(false);
       }}
       className="flex-col w-full lg:mt-4"
     >

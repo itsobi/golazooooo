@@ -28,7 +28,8 @@ export default async function Post({
   const { data: comments, error: commentsError } = await supabase
     .from('comments')
     .select('*')
-    .eq('post_id', searchParams.postId);
+    .eq('post_id', searchParams.postId)
+    .order('created_at', { ascending: false });
 
   return (
     <main className="max-w-4xl mx-auto w-full px-4 lg:px-0">
