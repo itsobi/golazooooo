@@ -4,9 +4,8 @@ import { MessageCircleReply, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Comment } from './CommentRow';
 import ReplyToCommentForm from './ReplyToCommentForm';
-import { auth } from '@clerk/nextjs/server';
 
-export default function ReplyToComment({
+export default function ReplyToCommentActions({
   comment,
   userId,
 }: {

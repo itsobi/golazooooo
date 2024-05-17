@@ -1,7 +1,9 @@
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import TimeAgoDate from '../post/TimeAgoDate';
 import { auth } from '@clerk/nextjs/server';
-import ReplyToComment from './ReplyToComment';
+import ReplyToCommentActions from './ReplyToCommentActions';
+import ReplyToCommentRow from './ReplyToCommentRow';
+import { createClient } from '@/supabase/server';
 
 export type Comment = {
   id: number;
@@ -14,11 +16,24 @@ export type Comment = {
   community_value: string;
 };
 
-export default function CommentRow({ comment }: { comment: Comment }) {
+type Props = {
+  comment: Comment;
+  style?: string;
+};
+
+export default async function CommentRow({ comment, style }: Props) {
   const firstLetter = comment.username.charAt(1);
   const { userId } = auth();
+
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from('comment_replies')
+    .select('*')
+    .eq('comment_id', comment.id);
+
   return (
-    <div className="mt-8">
+    <div className={style ?? 'mt-8'}>
       <div className="flex items-center space-x-2" key={comment.id}>
         <Avatar>
           <AvatarFallback>{firstLetter}</AvatarFallback>
@@ -30,8 +45,18 @@ export default function CommentRow({ comment }: { comment: Comment }) {
       </div>
       <div className="pl-12">
         <p>{comment.text}</p>
-        {userId && <ReplyToComment comment={comment} userId={userId} />}
+        {userId && <ReplyToCommentActions comment={comment} userId={userId} />}
       </div>
+      {data && (
+        <div className="pl-14">
+          {data.map((replyToComment) => (
+            <ReplyToCommentRow
+              key={replyToComment.id}
+              replyToComment={replyToComment}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
