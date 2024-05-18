@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useRef } from 'react';
 import { toast } from '../ui/use-toast';
 import { Button } from '../ui/button';
 import SendComment from './SendComment';
