@@ -18,7 +18,7 @@ export default function ReplyToCommentRow({
 }) {
   return (
     <div className="mt-2">
-      <div className="w-[2px] h-8 bg-blue-700" />
+      <div className="w-[2px] h-8 bg-gray-300" />
       <CommentRow comment={replyToComment} style="mt-0" />
     </div>
   );

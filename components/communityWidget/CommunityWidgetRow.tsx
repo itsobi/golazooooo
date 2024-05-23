@@ -11,7 +11,7 @@ export default function CommunityWidgetRow({ community }: { community: any }) {
       <img
         src={community.image}
         alt={community.name}
-        className="h-10 w-10 rounded-full"
+        className="h-10 w-10 rounded-full hidden lg:inline-flex"
       />
       <p>{community.name}</p>
     </Link>

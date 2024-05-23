@@ -39,7 +39,11 @@ export default async function Post({
           <p className="text-sm font-semibold">{post?.[0].username}</p>
           <TimeAgoDate date={post?.[0].created_at} />
         </div>
-        <SignedIn>{userId === post?.[0].author && <DeleteButton />}</SignedIn>
+        <SignedIn>
+          {userId === post?.[0].author && (
+            <DeleteButton postId={post?.[0].id} />
+          )}
+        </SignedIn>
       </div>
       <div className="flex-col space-y-4 pb-4">
         <h1 className="font-semibold text-2xl">{post?.[0].title}</h1>
