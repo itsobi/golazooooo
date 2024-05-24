@@ -23,11 +23,6 @@ export default function ReplyToCommentActions({
           >
             <MessageCircleReply />
           </button>
-          {comment.author === userId && (
-            <button className="flex items-center space-x-1 hover:text-red-500 mt-2">
-              <Trash2 />
-            </button>
-          )}
         </div>
       )}
 

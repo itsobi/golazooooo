@@ -40,18 +40,18 @@ export default async function Post({
           <TimeAgoDate date={post?.[0]?.created_at} />
         </div>
         <SignedIn>
-          {userId === post?.[0].author && (
+          {userId === post?.[0]?.author && (
             <DeleteButton postId={post?.[0]?.id} />
           )}
         </SignedIn>
       </div>
       <div className="flex-col space-y-4 pb-4">
         <h1 className="font-semibold text-2xl">{post?.[0]?.title}</h1>
-        <p>{post?.[0].body}</p>
-        {post?.[0].image && (
+        <p>{post?.[0]?.body}</p>
+        {post?.[0]?.image && (
           <img
-            src={post?.[0].image}
-            alt={post?.[0].title}
+            src={post?.[0]?.image}
+            alt={post?.[0]?.title}
             className="object-contain mb-6"
           />
         )}
@@ -59,7 +59,7 @@ export default async function Post({
 
       <div className="mb-10">
         <CommentForm
-          postId={post?.[0].id}
+          postId={post?.[0]?.id}
           communityValue={params.communityValue}
           serverAction={createComment}
         />
