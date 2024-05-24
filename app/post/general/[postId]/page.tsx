@@ -7,30 +7,26 @@ import TimeAgoDate from '@/components/post/TimeAgoDate';
 import { createClient } from '@/supabase/server';
 import { SignedIn } from '@clerk/nextjs';
 import { auth } from '@clerk/nextjs/server';
+import React from 'react';
 
-export default async function Post({
+export default async function GeneralPost({
   params,
-  searchParams,
 }: {
-  params: { communityValue: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: { postId: number };
 }) {
   const { userId } = auth();
   const supabase = createClient();
-
   // query the database for posts with the community_value and post_id
   const { data: post, error: postError } = await supabase
     .from('posts')
     .select('*')
-    .eq('community_value', params.communityValue)
-    .eq('id', searchParams.postId);
+    .eq('id', params.postId);
 
   const { data: comments, error: commentsError } = await supabase
     .from('comments')
     .select('*')
-    .eq('post_id', searchParams.postId)
+    .eq('post_id', params.postId)
     .order('created_at', { ascending: false });
-
   return (
     <main className="max-w-4xl mx-auto w-full px-4 lg:px-0">
       <div className="flex items-center justify-between">
@@ -58,11 +54,7 @@ export default async function Post({
       </div>
 
       <div className="mb-10">
-        <CommentForm
-          postId={post?.[0].id}
-          communityValue={params.communityValue}
-          serverAction={createComment}
-        />
+        <CommentForm postId={post?.[0].id} serverAction={createComment} />
         <Comments comments={comments} />
       </div>
     </main>

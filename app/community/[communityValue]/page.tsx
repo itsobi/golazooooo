@@ -1,5 +1,5 @@
 import BackButton from '@/components/BackButton';
-import ClickablePost from '@/components/post/ClickablePost';
+import ClickablePost from '@/components/post/CommunityPost';
 import { Button } from '@/components/ui/button';
 import { createClient } from '@/supabase/server';
 

@@ -10,11 +10,34 @@ import {
 import { useState } from 'react';
 import { toast } from './ui/use-toast';
 import { deletePost } from '@/actions/posts/deletePost';
+import { useRouter } from 'next/navigation';
 
 export default function DeleteButton({ postId }: { postId: number }) {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  // console.log(postId)
+  const handleDeletePost = async (postId: number) => {
+    setLoading(true);
+    const result = await deletePost(postId);
+
+    if (result.message) {
+      toast({
+        title: 'Success',
+        description: result.message,
+        variant: 'success',
+      });
+      setLoading(false);
+      router.back();
+    } else if (result.error) {
+      toast({
+        title: 'Error',
+        description: result.error,
+        variant: 'destructive',
+      });
+      setLoading(false);
+    }
+  };
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -38,9 +61,11 @@ export default function DeleteButton({ postId }: { postId: number }) {
               Cancel
             </Button>
             <Button
-              onClick={() => deletePost(postId)}
+              onClick={() => handleDeletePost(postId)}
               variant="destructive"
               size="sm"
+              className="disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={loading}
             >
               Delete
             </Button>

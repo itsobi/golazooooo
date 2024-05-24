@@ -78,10 +78,13 @@ export default function PostForm({
 
         if (result?.message) {
           toast({
+            title: 'Success',
             description: result.message,
+            variant: 'success',
           });
         } else {
           toast({
+            title: 'Error',
             description: result.error,
             variant: 'destructive',
           });

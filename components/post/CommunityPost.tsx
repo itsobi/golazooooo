@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Badge } from '../ui/badge';
 import TimeAgoDate from './TimeAgoDate';
 
-export default function ClickablePost({ post }: { post: Post }) {
+export default function CommunityPost({ post }: { post: Post }) {
   const { title, body, created_at, image, username } = post;
   return (
     <Link

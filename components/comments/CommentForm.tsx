@@ -9,12 +9,12 @@ import SendComment from './SendComment';
 
 type CommentFormProps = {
   postId: number;
-  communityValue: string;
+  communityValue?: string;
   serverAction: (
     postId: number,
     userId: string | undefined,
-    communityValue: string,
-    formData: FormData
+    formData: FormData,
+    communityValue?: string
   ) => Promise<
     | {
         message: string;
@@ -43,16 +43,19 @@ export default function CommentForm({
         const result = await serverAction(
           postId,
           user?.id,
-          communityValue,
-          formData
+          formData,
+          communityValue
         );
 
         if (result?.message) {
           toast({
+            title: 'Success',
             description: result.message,
+            variant: 'success',
           });
         } else {
           toast({
+            title: 'Error',
             description: result.error,
             variant: 'destructive',
           });

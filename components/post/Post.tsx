@@ -1,5 +1,5 @@
-import ClickablePost from './ClickablePost';
-import NonClickablePost from './NonClickablePost';
+import CommunityPost from './CommunityPost';
+import GeneralPost from './GeneralPost';
 
 export type Post = {
   id: number;
@@ -16,8 +16,8 @@ export type Post = {
 
 export default function Post({ post }: { post: Post }) {
   if (post.community_value === 'general') {
-    return <NonClickablePost post={post} />;
+    return <GeneralPost post={post} />;
   } else {
-    return <ClickablePost post={post} />;
+    return <CommunityPost post={post} />;
   }
 }

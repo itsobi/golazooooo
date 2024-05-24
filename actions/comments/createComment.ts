@@ -7,8 +7,8 @@ import { revalidatePath } from 'next/cache';
 export const createComment = async (
   postId: number,
   userId: string | undefined,
-  communityValue: string,
-  formData: FormData
+  formData: FormData,
+  communityValue?: string
 ) => {
   auth().protect();
   const comment = (formData.get('comment') as string).trim();
