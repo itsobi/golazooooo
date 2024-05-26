@@ -127,7 +127,7 @@ export default function PostForm({
 
             <TooltipCustom
               icon={<CircleHelp size={18} />}
-              hoverText="Your post will go into the community of whichever team you select here. If a team is not selected, the post will go into the general feed shown below."
+              hoverText='Your post will go into the community of whichever team you select here. If a community is not selected, the post will go inside the "General" community.'
             />
           </div>
 

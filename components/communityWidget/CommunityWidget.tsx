@@ -1,6 +1,5 @@
 import { createClient } from '@/supabase/server';
 import CommunityWidgetRow from './CommunityWidgetRow';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 export type CommunityWidgetRowProps = {
   name: string;

@@ -29,14 +29,11 @@ export default function ReplyToCommentActions({
                   </PopoverTrigger>
                   <PopoverContent>
                     <div className="flex flex-col space-y-2">
-                      {commentReplies.map((reply) => {
+                      {commentReplies.map((reply, i) => {
                         const firstLetter = comment.username.charAt(1);
                         return (
-                          <div>
-                            <div
-                              className="flex items-center space-x-2"
-                              key={comment.id}
-                            >
+                          <div key={i}>
+                            <div className="flex items-center space-x-2">
                               <Avatar>
                                 <AvatarFallback>{firstLetter}</AvatarFallback>
                               </Avatar>
@@ -44,7 +41,7 @@ export default function ReplyToCommentActions({
                                 <p className="text-sm font-semibold">
                                   {comment.username}
                                 </p>
-                                <TimeAgoDate date={comment.created_at} />
+                                <TimeAgoDate date={reply.created_at} />
                               </div>
                             </div>
                             <p className="pl-12">{reply.text}</p>

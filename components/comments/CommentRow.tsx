@@ -53,24 +53,24 @@ export default async function CommentRow({ comment, style }: Props) {
       </div>
       {commentReplies &&
         commentReplies.length < 2 &&
-        commentReplies.map((reply) => (
-          <>
+        commentReplies.map((reply, index) => (
+          <div key={index}>
             <div className="w-[2px] h-8 ml-6 border border-gray-300" />
             <div className="ml-6">
-              <div className="flex items-center space-x-2" key={comment.id}>
+              <div className="flex items-center space-x-2">
                 <Avatar>
                   <AvatarFallback>{firstLetter}</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col">
                   <div className="flex items-center space-x-1 mb-2">
                     <p className="text-sm font-semibold">{comment.username}</p>
-                    <TimeAgoDate date={comment.created_at} />
+                    <TimeAgoDate date={reply.created_at} />
                   </div>
                   <p>{reply.text}</p>
                 </div>
               </div>
             </div>
-          </>
+          </div>
         ))}
     </div>
   );
