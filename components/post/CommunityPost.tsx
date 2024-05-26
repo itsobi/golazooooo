@@ -22,7 +22,7 @@ export default function CommunityPost({ post }: { post: Post }) {
         <div>
           <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-2">
             <h4 className="font-semibold text-xl mb-1">{title}</h4>
-            <Badge className="bg-blue-700 mb-2 lg:mb-0 w-fit">
+            <Badge className="bg-[#1DA1F2] mb-2 lg:mb-0 w-fit">
               {post.community_label}
             </Badge>
           </div>

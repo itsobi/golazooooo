@@ -7,7 +7,7 @@ export default function Header() {
   const { userId } = auth();
   return (
     <header className="flex justify-between items-center py-6 px-4 border-b shadow-sm mb-6">
-      <Link href="/" className="text-blue-700 font-semibold flex-1">
+      <Link href="/" className="text-[#1DA1F2] font-semibold flex-1">
         Golazooooo
       </Link>
 

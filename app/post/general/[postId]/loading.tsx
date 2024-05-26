@@ -13,11 +13,11 @@ export default function LoadingScreen() {
         <Skeleton className="h-4 w-full" />
         <Skeleton className="h-4 w-full" />
       </div>
-      <p className="text-center animate-pulse font-bold text-blue-700 pt-10">
+      <p className="text-center animate-pulse font-bold text-[#1DA1F2] pt-10">
         Grabbing the post. This should only take a few seconds...
       </p>
       <div className="flex justify-center py-10">
-        <div className="w-10 h-10 bg-blue-700 animate-bounce rounded-full" />
+        <div className="w-10 h-10 bg-[#1DA1F2] animate-bounce rounded-full" />
       </div>
     </main>
   );

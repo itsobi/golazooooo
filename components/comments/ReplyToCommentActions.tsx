@@ -25,7 +25,7 @@ export default function ReplyToCommentActions({
               <div className="absolute">
                 <Popover>
                   <PopoverTrigger asChild>
-                    <CirclePlus className="cursor-pointer hover:text-blue-700" />
+                    <CirclePlus className="cursor-pointer hover:text-[#1DA1F2]" />
                   </PopoverTrigger>
                   <PopoverContent>
                     <div className="flex flex-col space-y-2">
@@ -52,14 +52,14 @@ export default function ReplyToCommentActions({
                   </PopoverContent>
                 </Popover>
               </div>
-              <div className="relative h-4 w-4 bg-blue-700 rounded-full bottom-2 left-2 flex justify-center items-center text-white text-xs">
+              <div className="relative h-4 w-4 bg-[#1DA1F2] rounded-full bottom-2 left-2 flex justify-center items-center text-white text-xs">
                 <p>{commentReplies.length}</p>
               </div>
             </>
           )}
           <MessageCircleReply
             onClick={() => setShowReplyToCommentForm(true)}
-            className="hover:text-blue-700 cursor-pointer"
+            className="hover:text-[#1DA1F2] cursor-pointer"
           />
         </div>
       )}

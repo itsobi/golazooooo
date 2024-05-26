@@ -145,7 +145,7 @@ export default function PostForm({
           <div className="flex items-center space-x-2">
             <label>Image (optional):</label>
             {!image && (
-              <span className="bg-gray-100 p-2 rounded-full transition-all duration-150 hover:bg-blue-700 hover:text-white cursor-pointer">
+              <span className="bg-gray-100 p-2 rounded-full transition-all duration-150 hover:bg-[#1DA1F2] hover:text-white cursor-pointer">
                 <Image onClick={() => imageRef?.current?.click()} />
               </span>
             )}

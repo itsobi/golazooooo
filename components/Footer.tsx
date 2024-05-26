@@ -9,7 +9,7 @@ export default function Footer() {
           href="https://www.justobii.com/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-blue-700 hover:text-slate-500 hover:underline"
+          className="text-sm text-[#1DA1F2] hover:text-slate-500 hover:underline"
         >
           justobii.com
         </Link>
