@@ -2,7 +2,6 @@ import { Avatar, AvatarFallback } from '../ui/avatar';
 import TimeAgoDate from '../post/TimeAgoDate';
 import { auth } from '@clerk/nextjs/server';
 import ReplyToCommentActions from './ReplyToCommentActions';
-import ReplyToCommentRow from './ReplyToCommentRow';
 import { createClient } from '@/supabase/server';
 
 export type Comment = {
@@ -27,7 +26,7 @@ export default async function CommentRow({ comment, style }: Props) {
 
   const supabase = createClient();
 
-  const { data, error } = await supabase
+  const { data: commentReplies, error } = await supabase
     .from('comment_replies')
     .select('*')
     .eq('comment_id', comment.id);
@@ -45,18 +44,34 @@ export default async function CommentRow({ comment, style }: Props) {
       </div>
       <div className="pl-12">
         <p>{comment.text}</p>
-        {userId && <ReplyToCommentActions comment={comment} userId={userId} />}
+        {userId && (
+          <ReplyToCommentActions
+            comment={comment}
+            commentReplies={commentReplies}
+          />
+        )}
       </div>
-      {data && (
-        <div className="pl-14">
-          {data.map((replyToComment) => (
-            <ReplyToCommentRow
-              key={replyToComment.id}
-              replyToComment={replyToComment}
-            />
-          ))}
-        </div>
-      )}
+      {commentReplies &&
+        commentReplies.length < 2 &&
+        commentReplies.map((reply) => (
+          <>
+            <div className="w-[2px] h-8 ml-6 border border-gray-300" />
+            <div className="ml-6">
+              <div className="flex items-center space-x-2" key={comment.id}>
+                <Avatar>
+                  <AvatarFallback>{firstLetter}</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col">
+                  <div className="flex items-center space-x-1 mb-2">
+                    <p className="text-sm font-semibold">{comment.username}</p>
+                    <TimeAgoDate date={comment.created_at} />
+                  </div>
+                  <p>{reply.text}</p>
+                </div>
+              </div>
+            </div>
+          </>
+        ))}
     </div>
   );
 }

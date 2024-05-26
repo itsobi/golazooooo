@@ -1,28 +1,69 @@
 'use client';
 
-import { MessageCircleReply, Trash2 } from 'lucide-react';
+import { CirclePlus, MessageCircleReply } from 'lucide-react';
 import { useState } from 'react';
-import { Comment } from './CommentRow';
+import CommentRow, { Comment } from './CommentRow';
 import ReplyToCommentForm from './ReplyToCommentForm';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import TimeAgoDate from '../post/TimeAgoDate';
+import { Avatar, AvatarFallback } from '../ui/avatar';
 
 export default function ReplyToCommentActions({
   comment,
-  userId,
+  commentReplies,
 }: {
   comment: Comment;
-  userId: string;
+  commentReplies: Comment[] | null;
 }) {
   const [showReplyToCommentForm, setShowReplyToCommentForm] = useState(false);
   return (
     <>
       {!showReplyToCommentForm && (
-        <div className="flex items-center space-x-2">
-          <button
-            className="flex items-center space-x-1 hover:text-blue-700 mt-2"
+        <div className="flex items-center space-x-2 mt-1">
+          {commentReplies && commentReplies.length > 1 && (
+            <>
+              <div className="absolute">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <CirclePlus className="cursor-pointer hover:text-blue-700" />
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <div className="flex flex-col space-y-2">
+                      {commentReplies.map((reply) => {
+                        const firstLetter = comment.username.charAt(1);
+                        return (
+                          <div>
+                            <div
+                              className="flex items-center space-x-2"
+                              key={comment.id}
+                            >
+                              <Avatar>
+                                <AvatarFallback>{firstLetter}</AvatarFallback>
+                              </Avatar>
+                              <div className="flex items-center space-x-1">
+                                <p className="text-sm font-semibold">
+                                  {comment.username}
+                                </p>
+                                <TimeAgoDate date={comment.created_at} />
+                              </div>
+                            </div>
+                            <p className="pl-12">{reply.text}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
+              <div className="relative h-4 w-4 bg-blue-700 rounded-full bottom-2 left-2 flex justify-center items-center text-white text-xs">
+                <p>{commentReplies.length}</p>
+              </div>
+            </>
+          )}
+          <MessageCircleReply
             onClick={() => setShowReplyToCommentForm(true)}
-          >
-            <MessageCircleReply />
-          </button>
+            className="hover:text-blue-700 cursor-pointer"
+          />
         </div>
       )}
 

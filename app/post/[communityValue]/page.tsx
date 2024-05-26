@@ -25,7 +25,7 @@ export default async function Post({
     .eq('community_value', params.communityValue)
     .eq('id', searchParams.postId);
 
-  const { data: comments, error: commentsError } = await supabase
+  const { data: comments } = await supabase
     .from('comments')
     .select('*')
     .eq('post_id', searchParams.postId)

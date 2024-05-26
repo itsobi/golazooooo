@@ -34,10 +34,13 @@ export default function ReplyToCommentForm({
         const result = await replyToComment(formData);
         if (result?.message) {
           toast({
+            title: 'Success',
             description: result.message,
+            variant: 'success',
           });
         } else {
           toast({
+            title: 'Error',
             description: result.error,
             variant: 'destructive',
           });
