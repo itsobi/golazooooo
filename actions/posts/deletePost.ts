@@ -18,7 +18,6 @@ export const deletePost = async (postId: number) => {
     revalidatePath('/');
     return { message: 'Post deleted successfully.' };
   } catch (error: any) {
-    console.log(error.message);
     return { error: error.message };
   }
 };
